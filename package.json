@@ -1,0 +1,19 @@
+{
+  "name": "taskmanagercsc3221",
+  "version": "1.0.0",
+  "description": "Task Manager for SPU class CSC3221",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deejayayay/TaskManagerCSC3221.git"
+  },
+  "author": "DeAngelo Ola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Deejayayay/TaskManagerCSC3221/issues"
+  },
+  "homepage": "https://github.com/Deejayayay/TaskManagerCSC3221#readme"
+}
