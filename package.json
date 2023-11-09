@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Deejayayay/TaskManagerCSC3221/issues"
   },
-  "homepage": "https://github.com/Deejayayay/TaskManagerCSC3221#readme"
+  "homepage": "https://github.com/Deejayayay/TaskManagerCSC3221#readme",
+  "dependencies": {
+    "boxicons": "^2.1.4",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
 }
