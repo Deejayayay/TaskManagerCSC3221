@@ -1,4 +1,6 @@
-const http = new coreHttp;
+
+
+const http = new coreHTTP;
 
 let List = [];
 
@@ -9,18 +11,26 @@ const addBtn = document.getElementById("add");
 
 addBtn.addEventListener("click", httpPost);
 
-//shows the list to the list
-
-
 function ShowList() {
-    let html = "<ul>";
+    let html = `<ul class="list">`;
     console.log(List);
     for (const itm of List) {
-        html += `<li>${itm}</li>`;
+        html += `<li class="itm">${itm}
+
+        <button type="submit" class="done" onclick="finishTask()">
+            <box-icon name='checkbox' ></box-icon>
+        </button>
+
+        <button type="submit" class="del" onclick="httpDelete()">
+            <box-icon name='trash' type='solid'></box-icon>
+        </button>
+        
+        </li>`;
     }
     html += "</ul>";
     result.innerHTML = html;
 }
+
 
 //gets list 
 async function GetList() {
@@ -51,17 +61,15 @@ async function httpPost(e) {
 }
 
 function httpDelete(e) {
-    let index = List.indexOf(input.value);
-    if(index !== -1) {
-        List.splice(index, 1);
-        ShowList();
-        WriteTasks();
-        return;
-    } else {
-        console.log("Item not found")
-    }
+    List.pop();
+    ShowList();
+    WriteTasks();
 }
 
+//change check box
+function finishTask() {
+
+}
   
 async function main(){
     await GetList();
