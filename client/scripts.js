@@ -3,41 +3,43 @@ const http = new coreHttp;
 let List = [];
 
 //selectors and listeners
-const result = document.querySelector(".result");
-const input = document.querySelector("#input-box");
-const addBtn = document.querySelector(".add");
-const delBtn = document.querySelector(".delete");
+const result = document.getElementById("result");
+const input = document.getElementById("input-box");
+const addBtn = document.getElementById("add");
+// const delBtn = document.querySelector(".delete");
 
 addBtn.addEventListener("click", httpPost);
 delBtn.addEventListener("click", httpDelete);
 
 //shows the list to the list
+
+
 function ShowList() {
     let html = "<ul>";
     console.log(List);
     for (const itm of List) {
         html += `<li>${itm}</li>`;
     }
-    html += "</ul>"
+    html += "</ul>";
     result.innerHTML = html;
 }
 
 //gets list 
 async function GetList() {
     try {
-        const response = await http.get("http://localhost:8080/api");
+        const response = await http.get("http://localhost:8080");
         List = await response;
         ShowList();
       } catch (error) {
-        console.error(error);
+        console.log(error);
       } 
 }
 
 async function WriteTasks() {
     try {
-        const res = await http.post("http://localhost:8080/api", List);
+        const res = await http.post("http://localhost:8080", List);
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 }
 
@@ -51,7 +53,6 @@ async function httpPost(e) {
 
 function httpDelete(e) {
     let index = List.indexOf(input.value);
-    
     if(index !== -1) {
         List.splice(index, 1);
         ShowList();
@@ -74,7 +75,7 @@ async function main() {
   
     await GetList();
   
-    addbtn.disabled = false;
+    addBtn.disabled = false;
     delBtn.disabled = false;
 }
   

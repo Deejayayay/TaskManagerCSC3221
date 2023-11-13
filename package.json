@@ -4,7 +4,8 @@
   "description": "Task Manager for SPU class CSC3221",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
     "boxicons": "^2.1.4",
     "express": "^4.18.2",
     "mongoose": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
