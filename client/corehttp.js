@@ -1,11 +1,11 @@
 class coreHTTP {
     //Get Request from URL
     async get(url) {
-        const reqOpts = {
+        const requestOptions = {
             method: "GET",
             headers: {"Content-Type": "application/json"}
         };
-        const response = await fetch(url, reqOpts);
+        const response = await fetch(url, requestOptions);
         if(response.ok) {
             const responseData = await response.json();
             return (responseData);
@@ -16,12 +16,12 @@ class coreHTTP {
     /*---------------------------------------*/
     //Post Request 
     async post(url, requestData) {
-        const reqOpts = {
+        const requestOptions = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(requestData)
         };
-        const response = await fetch(url, reqOpts);
+        const response = await fetch(url, requestOptions);
         if(response.ok) {
             const responseData = await response.json();
             return responseData;
@@ -32,12 +32,12 @@ class coreHTTP {
     /*---------------------------------------*/
     //put request
     async put(url, requestData) {
-        const reqOpts = {
+        const requestOptions = {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(requestData)
         };
-        const response = await fetch(url, reqOpts);
+        const response = await fetch(url, requestOptions);
         if(response.ok) {
             const responseData = await response.json();
             return (responseData);
@@ -49,11 +49,11 @@ class coreHTTP {
     /*---------------------------------------*/
     //delete 
     async delete(url) {
-        const reqOpts = {
+        const requestOptions = {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
         };
-        const response = await fetch(url, reqOpts);
+        const response = await fetch(url, requestOptions);
         if(response.ok) {
             return ({});
         } else {

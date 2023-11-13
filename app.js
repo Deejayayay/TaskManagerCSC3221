@@ -1,24 +1,22 @@
 //3rd party modules
 const express = require("express");
+//server
 const app = express();
 //custom module
 const fm = require("./filemgr");
-
-//express http server
-
 
 app.use(express.static("./Client"));
 app.use(express.json());
 
 /*---------------------------------------*/
 //routes for requests
-app.get("/", async (req,res) => {
+app.get("/api", async (req,res) => {
     const data = await fm.ReadData();
     console.log(data);
     res.json(data)
 });
 
-app.post("/", async (req,res) => {
+app.post("/api", async (req,res) => {
     await fm.WriteData(req.body);
     res.send();
 });

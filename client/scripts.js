@@ -3,13 +3,11 @@ const http = new coreHttp;
 let List = [];
 
 //selectors and listeners
-const result = document.getElementById("result");
+const result = document.querySelector(".result");
 const input = document.getElementById("input-box");
 const addBtn = document.getElementById("add");
-// const delBtn = document.querySelector(".delete");
 
 addBtn.addEventListener("click", httpPost);
-delBtn.addEventListener("click", httpDelete);
 
 //shows the list to the list
 
@@ -27,7 +25,8 @@ function ShowList() {
 //gets list 
 async function GetList() {
     try {
-        const response = await http.get("http://localhost:8080");
+        const response = await http.get("http://localhost:8080/api");
+        console.log(response);
         List = await response;
         ShowList();
       } catch (error) {
@@ -37,7 +36,7 @@ async function GetList() {
 
 async function WriteTasks() {
     try {
-        const res = await http.post("http://localhost:8080", List);
+        const res = await http.post("http://localhost:8080/api", List);
     } catch (error) {
         console.log(error);
     }
@@ -63,21 +62,9 @@ function httpDelete(e) {
     }
 }
 
-// Loading functions
-function Loading() {
-    result.innerHTML = "Loading...";
-}
   
-async function main() {
-    addBtn.disabled = true;
-    delBtn.disabled = true;
-    Loading();
-  
+async function main(){
     await GetList();
-  
-    addBtn.disabled = false;
-    delBtn.disabled = false;
 }
-  
+
 main();
-//<button type="submit" class="delete"><box-icon name='trash-alt' type='solid' ></box-icon></button>

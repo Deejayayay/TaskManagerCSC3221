@@ -41,7 +41,6 @@ body {
     background: #edeef0;
     border-radius: 30px;
     padding-left: 20px;
-    margin-bottom: 25px;
     box-shadow: 5px 10px #888888;
 }
 
@@ -59,4 +58,3 @@ button {
     margin-top: 3px;
     background-color: transparent;
 }
-
