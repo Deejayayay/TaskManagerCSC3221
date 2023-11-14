@@ -1,5 +1,3 @@
-
-
 const http = new coreHTTP;
 
 let List = [];
@@ -15,7 +13,8 @@ function ShowList() {
     let html = `<ul class="list">`;
     console.log(List);
     for (const itm of List) {
-        html += `<li class="itm">${itm}
+        console.log(itm)
+        html += `<li class="itm">${itm.name}
 
         <button type="submit" class="done" onclick="finishTask()">
             <box-icon name='checkbox' ></box-icon>
@@ -28,6 +27,7 @@ function ShowList() {
         </li>`;
     }
     html += "</ul>";
+    
     result.innerHTML = html;
 }
 
@@ -35,9 +35,8 @@ function ShowList() {
 //gets list 
 async function GetList() {
     try {
-        const response = await http.get("http://localhost:8080/api");
-        console.log(response);
-        List = await response;
+        const response = await http.get("http://localhost:8080/api/tasks");
+        List = await response.task;
         ShowList();
       } catch (error) {
         console.log(error);
@@ -46,7 +45,7 @@ async function GetList() {
 
 async function WriteTasks() {
     try {
-        const res = await http.post("http://localhost:8080/api", List);
+        const res = await http.post("http://localhost:8080/api/tasks", List);
     } catch (error) {
         console.log(error);
     }
@@ -60,8 +59,10 @@ async function httpPost(e) {
     await WriteTasks();
 }
 
-function httpDelete(e) {
-    List.pop();
+function httpDelete(e,index) { 
+    let i = document.getElementById(index);
+    console.log('delete index:' + index);
+    List.splice (i,1);
     ShowList();
     WriteTasks();
 }

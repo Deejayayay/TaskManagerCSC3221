@@ -21,7 +21,7 @@ class coreHTTP {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(requestData)
         };
-        const response = await fetch(url, requestOptions);
+        const response = await post(url, requestOptions);
         if(response.ok) {
             const responseData = await response.json();
             return responseData;
