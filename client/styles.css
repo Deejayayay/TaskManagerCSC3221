@@ -64,18 +64,34 @@ button {
     list-style: none;
     display: flex;
     align-items: center;
-    
     background: #edeef0;
     border-radius: 30px;
     padding-left: 20px;
     margin-top: 25px;
     box-shadow: 5px 10px #888888;
+    /* box-shadow: 5px 10px seagreen;*/
 }
 
-.done-checked {
-
-}
-
-.done-itm {
+.itm-done {
     text-decoration: line-through;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    background: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-top: 25px;
+    box-shadow: 5px 10px seagreen;
+}
+
+.del {
+margin-left: auto;
+}
+
+.add {
+    margin-left: auto;
+}
+
+.editable {
+    
 }

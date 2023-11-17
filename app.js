@@ -1,6 +1,6 @@
 //modules
 const express = require("express");
-const connectDB = require("./connect");
+const connectDB = require("./connect.js");
 
 //server
 const app = express();
@@ -9,8 +9,7 @@ app.use(express.static("./Client"));
 app.use(express.json());
 
 //data model
-const tasks = require("./task");
-const task = require("./task");
+const tasks = require("./task.js");
 /*---------------------------------------*/
 //routes for requests
 app.get("/api/tasks", async (req,res) => {
@@ -18,51 +17,55 @@ app.get("/api/tasks", async (req,res) => {
         const task = await tasks.find();
         res.status(200).json({task});
     } catch {
+        res.status(418).json({msg: error});
+    }
+});
+
+//put request
+app.put("/api/tasks/:name", async (req,res) => {
+    try {
+        const task = await tasks.findOne({name: req.params.name});
+        if(!task) {
+            return res.status(404).json({msg: "Task not found"});
+        }
+
+        if(req.body.completed === undefined) {
+            return res.status(400).json({msg: "Missing 'completed' field in request body"});
+        }
+        
+        task.completed = req.body.completed;
+        await task.save();
+        res.status(200).json({task});
+    } catch (error) {
+        console.error(error);
         res.status(500).json({msg: error});
     }
 });
 
-app.put("/api/tasks", async (req,res) => {
-    try {
-        const targetTask = await tasks.find({name: req.params.name});
-        if(targetTask === null) {
-            throw error;
-        }
-
-        const retData = await tasks.updateOne({name: req.params.name}, {$set:{
-            name: req.body.name, completed: req.body.completed}
-        });
-
-        res.status(200).json({retData});
-    } catch (error) {
-        res.status(418).json({msg: error});
-    }
-})
 
 app.post("/api/tasks", async (req,res) => {
+    console.log(req.body.name);
+    const newTask = {
+        name: req.body.name,
+        completed: false
+    };
+
+    const newTasks = new tasks(newTask);
     try {
-        const tasksExists = await tasks.findOne({name: req.body.name});
-        if(tasksExists){
-            throw error;
-        }
-
-        let taskData = {
-            name: req.body.name,
-            completed: req.body.completed
-        };
-
-        const retData = await tasks.create(taskData);
-        res.status(200).json({retData});
+        const savedTask = await newTasks.save();
+        res.status(200).json(savedTask);
     } catch (error) {
-        res.status(418).json({msg: error});
+        console.error(error);
+        res.status(500).json({ msg: 'Internal Server Error', error: error.message });
     }
 });
 
-app.delete("/api/tasks", async (req,res) => {
+app.delete("/api/tasks/:name", async (req,res) => {
     try {
-        const task = await task.deleteOne({name: req.params.name});
+        const task = await tasks.deleteOne({name: req.params.name});
+        console.log(task);
         res.status(200).json({task});
-    } catch {
+    } catch (error) {
         res.status(418).json({msg: error});
     }
 });

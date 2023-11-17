@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 
-// Note update the Team userId and password and the Team Database name to your own.
-// For example for Team 1 the userid and password should be Team1:1234
-// and the Database name is TM-T1
     //UserId: Team6
     //pass: 1234
     //db Name: TM-T6
