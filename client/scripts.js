@@ -11,9 +11,9 @@ addBtn.addEventListener("click", httpPost);
 
 function ShowList() {
     let html = `<ul class="list">`;
-    for (const itm of List) {
-        let i = List.indexOf(itm);
-        if(itm.completed) {
+    for (const task of List) {
+        let i = List.indexOf(task);
+        if(task.completed) {
             html += `
             <li id="item${i}" class="itm-done" name="">
                 <button id="CHECKBOX${i}" type="submit" class="done" onclick="finishTask(${i})">
@@ -21,9 +21,9 @@ function ShowList() {
                 </button>
             <div id="edit${i}">
                 <span id="task${i}" 
-                class="editable" 
                 ondblclick="editTask(${i})"
-                >${itm.name}
+                >
+                ${task.name}
                 </span>
             </div>
                 <button type="submit" class="del" onclick="httpDelete(${i})">
@@ -37,10 +37,11 @@ function ShowList() {
                     <box-icon name='checkbox' ></box-icon>
                 </button>
             <div id="edit${i}">
-                <span id="task${i}"
-                class="editable" 
+                <span id="task${i}" 
                 ondblclick="editTask(${i})"
-                >${itm.name}</span>
+                >
+                ${task.name}
+                </span>
             </div>
                 <button type="submit" class="del" onclick="httpDelete(${i})">
                     <box-icon name='x'></box-icon>
@@ -132,6 +133,7 @@ async function finishTask(index) {
 async function editTask(index){
     try {
         const task = List[index];
+        console.log(task.name);
         const edit = document.getElementById(`edit${index}`);
         const currentName = edit.textContent.trim();
         edit.innerHTML = `<input type="text" class="editable" id="taskNew${index}" value="${currentName}"/>`;
@@ -140,18 +142,16 @@ async function editTask(index){
         input.addEventListener("keyup", async function(event) {
             if (event.keyCode === 13) {
                 event.preventDefault();
-                const newName = input.value;
-                const res = await http.put(`http://localhost:8080/api/tasks/${task.name}`, {
-                    name: newName,
+                const newData = {
+                    name: input.value,
                     completed: task.completed
-                });
+                };
+                const res = await http.put(`http://localhost:8080/api/tasks/${task.name}`, newData);
+                task.name = input.value;
+
                 console.log(task.name);
-                console.log(res);
-                
-                console.log(input.value);
-                console.log(task.name);
-                task.name = newName;
                 edit.innerHTML = `<span id="task${index}" class="editable" ondblclick="editTask(${index})">${task.name}</span>`;
+                ShowList();
             }
         });
     } catch (error) {

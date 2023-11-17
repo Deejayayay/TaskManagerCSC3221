@@ -93,5 +93,6 @@ margin-left: auto;
 }
 
 .editable {
-    
+    background-color: lightgray;
+    border-radius: 30px;
 }
